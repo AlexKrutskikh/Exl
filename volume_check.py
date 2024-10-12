@@ -15,68 +15,69 @@ old_data.columns = old_data.columns.str.strip()
 for column in old_data.select_dtypes(include='number').columns:
     old_data[column] = pd.to_numeric(old_data[column], errors='coerce').fillna(0).astype(int)
 
-# Поля, которые нужно обновлять
+# Статический список полей для обновления
 fields_to_update = [
-    'Node_Name_new', 'IP_Address_new', 'ObjectSubType_new', 'Address_new', 'Volume_Name_new',
-    'Disk_size_new', 'VolumeID_new', 'Polling_frequency_new', 'Threshold_Warning_new',
-    'Escalation_Warning_new', 'Threshold_Critical_new', 'Escalation_Critical_new',
-    'MailTo_new', 'Business_services_new', 'Contact_Person_new',
-    'Support_time_beginning_new', 'Support_time_over_new', 'Contact _ERSON_RG_new'
+    'Node_name_new', 'IP_Address_new', 'ObjectSubType_new', 'Address_new', 'Interface_Name_new',
+    'InterfaceID_new', 'Contact_Person_new', 'Support_Time_Start_new', 'support_time_End_new',
+    'MailTo_new', 'ContactPerson_RG_new', 'Business_service_new', 'Operational_service_new',
+    'Escalation_Error_Warning_new', 'Escalation_Error_Critical_new', 'Escalation_availability_new',
+    'Escalation_Disposal_Warning_new', 'Escalation_Disposal_Critical_new'
 ]
-
-# Проверка наличия необходимых столбцов в old_data
-print("Столбцы в old_data:", old_data.columns.tolist())
-
-# DataFrame для хранения строк без совпадений
-not_found_data = pd.DataFrame()
 
 # Получаем список всех файлов в папке new
 new_files = [f for f in os.listdir(new_folder_path) if f.endswith('.xlsx')]
 
-# Цикл по всем файлам в папке new
-for new_file in new_files:
-    new_file_path = os.path.join(new_folder_path, new_file)
-    print(f"Обработка файла: {new_file}")
+# Проверка наличия файлов в папке new
+if not new_files:
+    print("Нет файлов в папке new.")
+else:
+    # DataFrame для хранения строк без совпадений
+    not_found_data = pd.DataFrame()
 
-    # Чтение данных из нового файла
-    new_data = pd.read_excel(new_file_path)
-    new_data.columns = new_data.columns.str.strip()  # Удаление лишних пробелов в заголовках
+    # Цикл по всем файлам в папке new
+    for new_file in new_files:
+        new_file_path = os.path.join(new_folder_path, new_file)
+        print(f"Обработка файла: {new_file}")
 
-    # Приведение всех числовых столбцов в new_data к целым числам
-    for column in new_data.select_dtypes(include='number').columns:
-        new_data[column] = pd.to_numeric(new_data[column], errors='coerce').fillna(0).astype(int)
+        # Чтение данных из текущего файла
+        new_data = pd.read_excel(new_file_path)
+        new_data.columns = new_data.columns.str.strip()  # Удаление лишних пробелов в заголовках
 
-    # Цикл по всем значениям VolumeID_new в файле new
-    for index, row in new_data.iterrows():
-        volume_id_new = row['VolumeID_new']
+        # Приведение всех числовых столбцов в new_data к целым числам
+        for column in new_data.select_dtypes(include='number').columns:
+            new_data[column] = pd.to_numeric(new_data[column], errors='coerce').fillna(0).astype(int)
 
-        # Поиск строки в old_data с совпадающим значением VolumeID
-        old_row_index = old_data[old_data['VolumeID'] == volume_id_new].index
+        # Цикл по всем значениям InterfaceID_new в текущем файле new
+        for index, row in new_data.iterrows():
+            interface_id_new = row['InterfaceID_new']
 
-        # Вывод информации о найденных индексах
-        if old_row_index.empty:
-            print(f"Не найдено совпадение для VolumeID: {volume_id_new}")
-            # Добавляем строку без совпадений в DataFrame
-            not_found_data = pd.concat([not_found_data, row.to_frame().T], ignore_index=True)
-        else:
-            print(f"Найдено совпадение для VolumeID: {volume_id_new} на индексе {old_row_index[0]}")
+            # Поиск строки в old_data с совпадающим значением InterfaceID
+            old_row_index = old_data[old_data['InterfaceID'] == interface_id_new].index
 
-            # Если совпадение найдено, обновляем поля в old_data
-            for field in fields_to_update:
-                # Проверка наличия поля в new_data
-                if field in new_data.columns:
-                    value_to_update = row[field]
-                    if value_to_update:  # Проверка на наличие значения
-                        # Приведение типа к str для обновления
-                        old_data.loc[old_row_index[0], field] = str(value_to_update)
-                        print(f"Обновлено поле: {field} для {volume_id_new} на {value_to_update}")
+            # Вывод информации о найденных индексах
+            if old_row_index.empty:
+                print(f"Не найдено совпадение для InterfaceID: {interface_id_new}")
+                # Добавляем строку без совпадений в DataFrame
+                not_found_data = pd.concat([not_found_data, row.to_frame().T], ignore_index=True)
+            else:
+                print(f"Найдено совпадение для InterfaceID: {interface_id_new} на индексе {old_row_index[0]}")
 
-# Сохранение изменений в файле old
-old_data.to_excel(r'C:\Users\kruts\PycharmProjects\Exl\exlfile\old_updated.xlsx', index=False)
+                # Если совпадение найдено, обновляем поля в old_data
+                for field in fields_to_update:
+                    # Проверка наличия поля в new_data
+                    if field in new_data.columns:
+                        value_to_update = row[field]
+                        if pd.notna(value_to_update):  # Проверка на наличие значения (не NaN)
+                            # Приведение типа к str для обновления
+                            old_data.loc[old_row_index[0], field] = str(value_to_update)
+                            print(f"Обновлено поле: {field} для {interface_id_new} на {value_to_update}")
 
-# Сохранение строк без совпадений в отдельный файл
-if not not_found_data.empty:
-    not_found_data.to_excel(r'C:\Users\kruts\PycharmProjects\Exl\exlfile\not_found_volume_id.xlsx', index=False)
-    print("Строки без совпадений сохранены в not_found_volume_id.xlsx")
+    # Сохранение изменений в файле old
+    old_data.to_excel(r'C:\Users\kruts\PycharmProjects\Exl\exlfile\old_updated.xlsx', index=False)
 
-print("Обновление завершено.")
+    # Сохранение строк без совпадений в отдельный файл
+    if not not_found_data.empty:
+        not_found_data.to_excel(r'C:\Users\kruts\PycharmProjects\Exl\exlfile\not_found_interface_id.xlsx', index=False)
+        print("Строки без совпадений сохранены в not_found_interface_id.xlsx")
+
+    print("Обновление завершено.")

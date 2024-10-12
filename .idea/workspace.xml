@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b81f4a81-60c8-400f-9736-9d32f8046595" name="Changes" comment="creat_poject">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/volume_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/volume_check.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +23,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AlexKrutskikh&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AlexKrutskikh/Exl&quot;,
+    &quot;accountId&quot;: &quot;06ac4129-1e63-47ee-af7b-734d9f8add24&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -39,6 +52,7 @@
     "Python.volume_check (1).executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/kruts/PycharmProjects/Exl",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -173,7 +187,8 @@
       <option name="presentableId" value="Default" />
       <updated>1728671465712</updated>
       <workItem from="1728671467233" duration="1161000" />
-      <workItem from="1728672657633" duration="9819000" />
+      <workItem from="1728672657633" duration="9962000" />
+      <workItem from="1728692510136" duration="2488000" />
     </task>
     <task id="LOCAL-00001" summary="creat_poject">
       <option name="closed" value="true" />
@@ -207,7 +222,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728684963916</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="creat_poject">
+      <option name="closed" value="true" />
+      <created>1728685404165</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728685404165</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -218,9 +241,9 @@
     <option name="LAST_COMMIT_MESSAGE" value="creat_poject" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Exl$volume_check__1_.coverage" NAME="volume_check (1) Coverage Results" MODIFIED="1728682581051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Exl$volume_check__1_.coverage" NAME="volume_check (1) Coverage Results" MODIFIED="1728694363464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Exl$check.coverage" NAME="check Coverage Results" MODIFIED="1728673412551" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Exl$check_for_old.coverage" NAME="check_for_old Coverage Results" MODIFIED="1728682661296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Exl$check_for_old.coverage" NAME="check_for_old Coverage Results" MODIFIED="1728694409554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Exl$exl.coverage" NAME="exl Coverage Results" MODIFIED="1728675359130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
