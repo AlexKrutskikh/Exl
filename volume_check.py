@@ -15,15 +15,6 @@ old_data.columns = old_data.columns.str.strip()
 for column in old_data.select_dtypes(include='number').columns:
     old_data[column] = pd.to_numeric(old_data[column], errors='coerce').fillna(0).astype(int)
 
-# Статический список полей для обновления
-fields_to_update = [
-    'Node_name_new', 'IP_Address_new', 'ObjectSubType_new', 'Address_new', 'Interface_Name_new',
-    'InterfaceID_new', 'Contact_Person_new', 'Support_Time_Start_new', 'support_time_End_new',
-    'MailTo_new', 'ContactPerson_RG_new', 'Business_service_new', 'Operational_service_new',
-    'Escalation_Error_Warning_new', 'Escalation_Error_Critical_new', 'Escalation_availability_new',
-    'Escalation_Disposal_Warning_new', 'Escalation_Disposal_Critical_new'
-]
-
 # Получаем список всех файлов в папке new
 new_files = [f for f in os.listdir(new_folder_path) if f.endswith('.xlsx')]
 
@@ -47,28 +38,26 @@ else:
         for column in new_data.select_dtypes(include='number').columns:
             new_data[column] = pd.to_numeric(new_data[column], errors='coerce').fillna(0).astype(int)
 
-        # Цикл по всем значениям InterfaceID_new в текущем файле new
+        # Цикл по всем значениям NodeID_new в текущем файле new
         for index, row in new_data.iterrows():
-            interface_id_new = row['InterfaceID_new']
+            interface_id_new = row['NodeID_new']
 
-            # Поиск строки в old_data с совпадающим значением InterfaceID
-            old_row_index = old_data[old_data['InterfaceID'] == interface_id_new].index
+            # Поиск строки в old_data с совпадающим значением NodeID
+            old_row_index = old_data[old_data['NodeID'] == interface_id_new].index
 
             # Вывод информации о найденных индексах
             if old_row_index.empty:
-                print(f"Не найдено совпадение для InterfaceID: {interface_id_new}")
+                print(f"Не найдено совпадение для NodeID: {interface_id_new}")
                 # Добавляем строку без совпадений в DataFrame
                 not_found_data = pd.concat([not_found_data, row.to_frame().T], ignore_index=True)
             else:
-                print(f"Найдено совпадение для InterfaceID: {interface_id_new} на индексе {old_row_index[0]}")
+                print(f"Найдено совпадение для NodeID: {interface_id_new} на индексе {old_row_index[0]}")
 
                 # Если совпадение найдено, обновляем поля в old_data
-                for field in fields_to_update:
-                    # Проверка наличия поля в new_data
-                    if field in new_data.columns:
+                for field in old_data.columns:  # Перебираем все поля в old_data
+                    if field.endswith('_new') and field in new_data.columns:
                         value_to_update = row[field]
                         if pd.notna(value_to_update):  # Проверка на наличие значения (не NaN)
-                            # Приведение типа к str для обновления
                             old_data.loc[old_row_index[0], field] = str(value_to_update)
                             print(f"Обновлено поле: {field} для {interface_id_new} на {value_to_update}")
 
